@@ -24,6 +24,8 @@
 
 -(id)initWithTextureFile:(const NSString *)fileName pos:(const float *)Positions posSize:(int)posSize tex:(const float *)Texels texSize:(int)texSize norm:(const float *)Normals normSize:(int)normSize;
 
+-(void)setTexture;
+
 @end
 
 

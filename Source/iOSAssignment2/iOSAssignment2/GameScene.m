@@ -40,7 +40,7 @@
 	self = [super init];
 	
 	wallList = [[NSMutableArray alloc] init];
-	floor = [[Floor alloc] initWithPosition:[[Vector3 alloc] initWithValue:0 yPos:0 zPos:0]];
+	floor = [[Floor alloc] initWithPosition:[[Vector3 alloc] initWithValue:0 yPos:-1 zPos:0]];
 	
 	basicProgram = [[BasicProgram alloc] init];
 	

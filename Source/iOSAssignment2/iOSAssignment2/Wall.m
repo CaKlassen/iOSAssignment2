@@ -50,7 +50,7 @@ static const NSString* FILE_NAME = @"WallUV.png";
 	
 	_modelViewProjectionMatrix = GLKMatrix4Multiply(camera.perspective, modelMatrix);
 	
-	
+	[self setTexture];
 	[program useProgram:_vertexArray mvp:_modelViewProjectionMatrix normal:_normalMatrix];
 	
 	//draw the model

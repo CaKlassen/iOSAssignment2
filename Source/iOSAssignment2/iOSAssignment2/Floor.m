@@ -28,8 +28,7 @@ static const int SCALE = 20;
 -(id)initWithPosition:(Vector3*)pos
 {
 	self = [super initWithTextureFile:FILE_NAME pos:FloorPositions posSize:sizeof(FloorPositions) tex:FloorTexels texSize:sizeof(FloorTexels) norm:FloorNormals normSize:sizeof(FloorNormals)];
-	position = [[Vector3 alloc] initWithValue:(pos.x * 2) yPos:(pos.y * 2) zPos:(pos.z * 2)];
-	
+	position = pos;
 	return self;
 }
 
@@ -51,8 +50,9 @@ static const int SCALE = 20;
 	
 	_modelViewProjectionMatrix = GLKMatrix4Multiply(camera.perspective, modelMatrix);
 	
+	[self setTexture];
 	[program useProgram:_vertexArray mvp:_modelViewProjectionMatrix normal:_normalMatrix];
-	
+
 	//draw the model
 	glDrawArrays(GL_TRIANGLES, 0, FloorVertices);
 }
