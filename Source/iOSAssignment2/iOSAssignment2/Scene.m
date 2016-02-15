@@ -27,4 +27,14 @@
 	
 }
 
+-(void)doubleTap:(UITapGestureRecognizer*)recognizer
+{
+	
+}
+
+-(void)doubleTapTwoFingers:(UITapGestureRecognizer*)recognizer
+{
+	
+}
+
 @end

@@ -20,6 +20,7 @@
 -(void)updatePosition:(Vector3*)pos;
 -(void)moveCamera:(Vector2*)move;
 -(void)updateRotation:(Vector3*)rot;
+-(void)reset;
 -(GLKMatrix4)getLookAt;
 
 @property (assign) GLKMatrix4 perspective;

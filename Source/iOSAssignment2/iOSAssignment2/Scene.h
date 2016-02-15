@@ -17,6 +17,8 @@
 -(void)draw;
 
 -(void)pan:(UIPanGestureRecognizer*)recognizer;
+-(void)doubleTap:(UITapGestureRecognizer*)recognizer;
+-(void)doubleTapTwoFingers:(UITapGestureRecognizer*)recognizer;
 
 @end
 

@@ -34,6 +34,10 @@
 		
 		CGContextRef texContext = CGBitmapContextCreate(texData, width, height, 8, width*4, CGImageGetColorSpace(TexImage), kCGImageAlphaPremultipliedLast);
 		
+		// Flip the image because OpenGL has a reversed V axis
+		CGContextTranslateCTM(texContext, 0.0, height);
+		CGContextScaleCTM(texContext, 1.0, -1.0);
+		
 		CGContextDrawImage(texContext, CGRectMake(0, 0, width, height), TexImage);
 		CGContextRelease(texContext);
 		

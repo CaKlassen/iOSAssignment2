@@ -62,7 +62,17 @@ static GameViewController *instance;
 	
 	// Set up touch gestures
 	UIPanGestureRecognizer *panRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePanFrom:)];
-	[self.view addGestureRecognizer:panRecognizer];	
+	[self.view addGestureRecognizer:panRecognizer];
+	
+	UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleDoubleTapFrom:)];
+	[tapRecognizer setNumberOfTapsRequired:2];
+	[tapRecognizer setNumberOfTouchesRequired:1];
+	[self.view addGestureRecognizer:tapRecognizer];
+	
+	UITapGestureRecognizer *tap2Recognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleDoubleTapTwoFingersFrom:)];
+	[tap2Recognizer setNumberOfTapsRequired:2];
+	[tap2Recognizer setNumberOfTouchesRequired:2];
+	[self.view addGestureRecognizer:tap2Recognizer];
 	
 	// Create the initial scene
 	self.scene = [[GameScene alloc] init];
@@ -89,6 +99,15 @@ static GameViewController *instance;
 	[self.scene pan:recognizer];
 }
 
+-(void)handleDoubleTapFrom:(UITapGestureRecognizer*)recognizer
+{
+	[self.scene doubleTap:recognizer];
+}
+
+-(void)handleDoubleTapTwoFingersFrom:(UITapGestureRecognizer*)recognizer
+{
+	[self.scene doubleTapTwoFingers:recognizer];
+}
 
 
 - (void)dealloc

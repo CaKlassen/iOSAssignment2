@@ -10,6 +10,7 @@
 #import "MazeBuilder.h"
 #import "Wall.h"
 #include <stdlib.h>
+#include <math.h>
 
 @implementation MazeBuilder
 
@@ -53,10 +54,76 @@
 			if (_mazeData.maze[i][j] == YES)
 			{
 				// Create a wall object
-				[wallList addObject:[[Wall alloc] initWithPosition:[[Vector3 alloc] initWithValue:j yPos:0 zPos:i]]];
+				int type = [self getWallType:j y:i];
+				
+				[wallList addObject:[[Wall alloc] initWithPosition:[[Vector3 alloc] initWithValue:j yPos:0 zPos:i] type:type]];
 			}
 		}
 	}
+}
+
+-(int)getWallType:(int)x y:(int)y
+{
+	int type = 0;
+	
+	if (x > 0 && x < MAZE_SIZE + 1)
+	{
+		// Normal x
+		if (_mazeData.maze[y][x - 1] == YES)
+		{
+			if (_mazeData.maze[y][x + 1] == YES)
+			{
+				// Both sides
+				return 4;
+			}
+			else
+			{
+				// Left only
+				return 2;
+			}
+		}
+		else
+		{
+			if (_mazeData.maze[y][x + 1] == YES)
+			{
+				// Right only
+				return 3;
+			}
+			else
+			{
+				// Nothing
+				return 1;
+			}
+		}
+	}
+	else if (x == 0)
+	{
+		if (_mazeData.maze[y][x + 1] == YES)
+		{
+			// Right only
+			return 3;
+		}
+		else
+		{
+			// Nothing
+			return 1;
+		}
+	}
+	else
+	{
+		if (_mazeData.maze[y][x - 1] == YES)
+		{
+			// Left only
+			return 2;
+		}
+		else
+		{
+			// Nothing
+			return 1;
+		}
+	}
+	
+	return type;
 }
 
 
@@ -76,8 +143,6 @@
 	int startWall = arc4random_uniform(4);
 	int endWall;
 	bool horizontal;
-	
-	startWall = 1;
 	
 	if (startWall == 0)
 	{
@@ -123,26 +188,28 @@
 		while (_mazeData.maze[endWall][randEndPos] == YES);
 		
 		// Remove the edge walls
-		if (randStartPos > MAZE_SIZE / 2)
+		if (randStartPos < (MAZE_SIZE + 1) / 2)
 		{
 			_mazeData.maze[startWall][0] = NO;
-			_startPos = [[Vector2 alloc] initWithValue:-3 yPos:startWall];
+			_startPos = [[Vector2 alloc] initWithValue:(-3 * 2) yPos:(startWall * 2)];
+			_startAngle = (3.0f / 2.0f) * M_PI;
 		}
 		else
 		{
 			_mazeData.maze[startWall][MAZE_SIZE + 1] = NO;
-			_startPos = [[Vector2 alloc] initWithValue:(MAZE_SIZE + 4) yPos:startWall];
+			_startPos = [[Vector2 alloc] initWithValue:((MAZE_SIZE + 4) * 2) yPos:(startWall * 2)];
+			_startAngle = (1.0f / 2.0f) * M_PI;
 		}
 		
-		if (randEndPos > MAZE_SIZE / 2)
+		if (randEndPos < (MAZE_SIZE + 1) / 2)
 		{
 			_mazeData.maze[endWall][0] = NO;
-			_exitPos = [[Vector2 alloc] initWithValue:-3 yPos:endWall];
+			_exitPos = [[Vector2 alloc] initWithValue:(-3 * 2) yPos:(endWall * 2)];
 		}
 		else
 		{
 			_mazeData.maze[endWall][MAZE_SIZE + 1] = NO;
-			_exitPos = [[Vector2 alloc] initWithValue:MAZE_SIZE + 4 yPos:endWall];
+			_exitPos = [[Vector2 alloc] initWithValue:((MAZE_SIZE + 4) * 2) yPos:(endWall * 2)];
 		}
 	}
 	else
@@ -160,26 +227,27 @@
 		while (_mazeData.maze[randEndPos][endWall] == YES);
 
 		// Remove the edge walls
-		if (randStartPos > (MAZE_SIZE + 1) / 2)
+		if (randStartPos < (MAZE_SIZE + 1) / 2)
 		{
 			_mazeData.maze[0][startWall] = NO;
-			_startPos = [[Vector2 alloc] initWithValue:startWall yPos:-3];
+			_startPos = [[Vector2 alloc] initWithValue:(startWall * 2) yPos:(-3 * 2)];
+			_startAngle = M_PI;
 		}
 		else
 		{
 			_mazeData.maze[MAZE_SIZE + 1][startWall] = NO;
-			_startPos = [[Vector2 alloc] initWithValue:startWall yPos:(MAZE_SIZE + 4)];
+			_startPos = [[Vector2 alloc] initWithValue:(startWall * 2) yPos:((MAZE_SIZE + 4) * 2)];
 		}
 		
-		if (randEndPos > (MAZE_SIZE + 1) / 2)
+		if (randEndPos < (MAZE_SIZE + 1) / 2)
 		{
 			_mazeData.maze[0][endWall] = NO;
-			_exitPos = [[Vector2 alloc] initWithValue:endWall yPos:-3];
+			_exitPos = [[Vector2 alloc] initWithValue:(endWall * 2) yPos:(-3 * 2)];
 		}
 		else
 		{
 			_mazeData.maze[MAZE_SIZE + 1][endWall] = NO;
-			_exitPos = [[Vector2 alloc] initWithValue:endWall yPos:(MAZE_SIZE + 4)];
+			_exitPos = [[Vector2 alloc] initWithValue:(endWall * 2) yPos:((MAZE_SIZE + 4) * 2)];
 		}
 	}
 }

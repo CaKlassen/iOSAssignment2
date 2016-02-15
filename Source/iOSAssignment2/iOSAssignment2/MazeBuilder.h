@@ -28,6 +28,7 @@ typedef struct MazeData
 
 @property (assign) MazeData mazeData;
 @property (strong) Vector2* startPos;
+@property (assign) float startAngle;
 @property (strong) Vector2* exitPos;
 
 @end

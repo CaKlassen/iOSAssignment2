@@ -14,6 +14,7 @@
 #import "BasicProgram.h"
 #import "Vector.h"
 #import "Camera.h"
+#import "Crate.h"
 #import "MazeBuilder.h"
 
 
@@ -23,6 +24,7 @@
 	
 	NSMutableArray *wallList;
 	Floor *floor;
+	Crate *crate;
 	
 	BasicProgram *basicProgram;
 	MazeBuilder *builder;
@@ -40,7 +42,7 @@
 	self = [super init];
 	
 	wallList = [[NSMutableArray alloc] init];
-	floor = [[Floor alloc] initWithPosition:[[Vector3 alloc] initWithValue:0 yPos:-1 zPos:0]];
+	floor = [[Floor alloc] initWithPosition:[[Vector3 alloc] initWithValue:0 yPos:0 zPos:0]];
 	
 	basicProgram = [[BasicProgram alloc] init];
 	
@@ -50,15 +52,15 @@
 	
 	[self initCamera];
 	
+	// Create the crate
+	crate = [[Crate alloc] initWithPosition:[[Vector3 alloc] initWithValue:MAX(0, [[builder startPos] x]) yPos:2 zPos:MAX([[builder startPos] y], 0)]];
+	
 	return self;
 }
 
 -(void)update
 {
-	for (Wall *wall in wallList)
-	{
-		[wall update];
-	}
+	[crate update];
 }
 
 -(void)draw
@@ -74,7 +76,7 @@
 	}
 	
 	[floor draw:basicProgram camera:camera];
-	
+	[crate draw:basicProgram camera:camera];
 }
 
 
@@ -127,6 +129,20 @@
 }
 
 
+-(void)doubleTap:(UITapGestureRecognizer*)recognizer
+{
+	// Return to the start
+	[camera reset];
+	[camera makePosition:[[Vector3 alloc] initWithValue:[[builder startPos] x] yPos:2 zPos:[[builder startPos] y]]];
+	[camera updateRotation:[[Vector3 alloc] initWithValue:0 yPos:[builder startAngle] zPos:0]];
+}
+
+-(void)doubleTapTwoFingers:(UITapGestureRecognizer*)recognizer
+{
+	
+}
+
+
 -(void)initCamera
 {
 	GameViewController *controller = [GameViewController getInstance];
@@ -137,6 +153,7 @@
 	GLKMatrix4 cameraMatrix = GLKMatrix4MakePerspective(fov, aspectRatio, 0.1f, 100.0f);
 	
 	camera = [[Camera alloc] initWithPerspective:cameraMatrix position:[[Vector3 alloc] initWithValue:[[builder startPos] x] yPos:2 zPos:[[builder startPos] y]]];
+	[camera updateRotation:[[Vector3 alloc] initWithValue:0 yPos:[builder startAngle] zPos:0]];
 }
 
 @end

@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2293A89D1C716E93004AE2CD /* WallUV2.png in Resources */ = {isa = PBXBuildFile; fileRef = 2293A89A1C716E93004AE2CD /* WallUV2.png */; };
+		2293A89E1C716E93004AE2CD /* WallUV3.png in Resources */ = {isa = PBXBuildFile; fileRef = 2293A89B1C716E93004AE2CD /* WallUV3.png */; };
+		2293A89F1C716E93004AE2CD /* WallUV4.png in Resources */ = {isa = PBXBuildFile; fileRef = 2293A89C1C716E93004AE2CD /* WallUV4.png */; };
+		2293A8A11C716EC8004AE2CD /* WallUV1.png in Resources */ = {isa = PBXBuildFile; fileRef = 2293A8A01C716EC8004AE2CD /* WallUV1.png */; };
+		2293A8A41C717A37004AE2CD /* CrateUV.png in Resources */ = {isa = PBXBuildFile; fileRef = 2293A8A31C717A37004AE2CD /* CrateUV.png */; };
+		2293A8A71C717A95004AE2CD /* Crate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2293A8A61C717A95004AE2CD /* Crate.m */; };
 		22B0EED01C6C33BC00B2FA35 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B0EECF1C6C33BC00B2FA35 /* main.m */; };
 		22B0EED31C6C33BC00B2FA35 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B0EED21C6C33BC00B2FA35 /* AppDelegate.m */; };
 		22B0EED51C6C33BC00B2FA35 /* BasicShader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 22B0EED41C6C33BC00B2FA35 /* BasicShader.fsh */; };
@@ -21,7 +27,6 @@
 		22D10CED1C6EACF3005E7F8C /* Model.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D10CEC1C6EACF3005E7F8C /* Model.m */; };
 		22D10CF11C6EB147005E7F8C /* Program.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D10CF01C6EB147005E7F8C /* Program.m */; };
 		22D10D1B1C6EB6DC005E7F8C /* BasicProgram.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D10D1A1C6EB6DC005E7F8C /* BasicProgram.m */; };
-		22D10D1F1C6ED483005E7F8C /* WallUV.png in Resources */ = {isa = PBXBuildFile; fileRef = 22D10D1E1C6ED483005E7F8C /* WallUV.png */; };
 		22D10D221C6ED4C6005E7F8C /* Wall.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D10D211C6ED4C6005E7F8C /* Wall.m */; };
 		22D10D251C6EDABC005E7F8C /* Vector.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D10D241C6EDABC005E7F8C /* Vector.m */; };
 		22D10D281C6EE2E1005E7F8C /* Camera.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D10D271C6EE2E1005E7F8C /* Camera.m */; };
@@ -32,6 +37,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2293A89A1C716E93004AE2CD /* WallUV2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WallUV2.png; sourceTree = "<group>"; };
+		2293A89B1C716E93004AE2CD /* WallUV3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WallUV3.png; sourceTree = "<group>"; };
+		2293A89C1C716E93004AE2CD /* WallUV4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WallUV4.png; sourceTree = "<group>"; };
+		2293A8A01C716EC8004AE2CD /* WallUV1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WallUV1.png; sourceTree = "<group>"; };
+		2293A8A21C717A2F004AE2CD /* CrateData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CrateData.h; sourceTree = "<group>"; };
+		2293A8A31C717A37004AE2CD /* CrateUV.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CrateUV.png; sourceTree = "<group>"; };
+		2293A8A51C717A7A004AE2CD /* Crate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Crate.h; sourceTree = "<group>"; };
+		2293A8A61C717A95004AE2CD /* Crate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Crate.m; sourceTree = "<group>"; };
 		22B0EECB1C6C33BC00B2FA35 /* iOSAssignment2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOSAssignment2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		22B0EECF1C6C33BC00B2FA35 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		22B0EED11C6C33BC00B2FA35 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -57,7 +70,6 @@
 		22D10D191C6EB6C8005E7F8C /* BasicProgram.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BasicProgram.h; sourceTree = "<group>"; };
 		22D10D1A1C6EB6DC005E7F8C /* BasicProgram.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BasicProgram.m; sourceTree = "<group>"; };
 		22D10D1D1C6ED45B005E7F8C /* WallData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WallData.h; sourceTree = "<group>"; };
-		22D10D1E1C6ED483005E7F8C /* WallUV.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WallUV.png; sourceTree = "<group>"; };
 		22D10D201C6ED4B3005E7F8C /* Wall.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Wall.h; sourceTree = "<group>"; };
 		22D10D211C6ED4C6005E7F8C /* Wall.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Wall.m; sourceTree = "<group>"; };
 		22D10D231C6EDA4D005E7F8C /* Vector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Vector.h; sourceTree = "<group>"; };
@@ -148,6 +160,8 @@
 				22D10D211C6ED4C6005E7F8C /* Wall.m */,
 				22D10D351C6FFBC2005E7F8C /* Floor.h */,
 				22D10D361C6FFBD6005E7F8C /* Floor.m */,
+				2293A8A51C717A7A004AE2CD /* Crate.h */,
+				2293A8A61C717A95004AE2CD /* Crate.m */,
 			);
 			name = Entities;
 			sourceTree = "<group>";
@@ -189,8 +203,13 @@
 			children = (
 				22D10D1D1C6ED45B005E7F8C /* WallData.h */,
 				22D10D2F1C6FFA6C005E7F8C /* FloorData.h */,
-				22D10D1E1C6ED483005E7F8C /* WallUV.png */,
+				2293A8A21C717A2F004AE2CD /* CrateData.h */,
+				2293A8A01C716EC8004AE2CD /* WallUV1.png */,
+				2293A89A1C716E93004AE2CD /* WallUV2.png */,
+				2293A89B1C716E93004AE2CD /* WallUV3.png */,
+				2293A89C1C716E93004AE2CD /* WallUV4.png */,
 				22D10D301C6FFA72005E7F8C /* FloorUV.png */,
+				2293A8A31C717A37004AE2CD /* CrateUV.png */,
 			);
 			name = Assets;
 			sourceTree = "<group>";
@@ -254,11 +273,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				22D10D311C6FFA72005E7F8C /* FloorUV.png in Resources */,
+				2293A89F1C716E93004AE2CD /* WallUV4.png in Resources */,
+				2293A89E1C716E93004AE2CD /* WallUV3.png in Resources */,
 				22B0EEDD1C6C33BC00B2FA35 /* Main.storyboard in Resources */,
+				2293A8A11C716EC8004AE2CD /* WallUV1.png in Resources */,
 				22B0EED71C6C33BC00B2FA35 /* BasicShader.vsh in Resources */,
+				2293A89D1C716E93004AE2CD /* WallUV2.png in Resources */,
 				22B0EEDF1C6C33BC00B2FA35 /* Assets.xcassets in Resources */,
 				22B0EEE21C6C33BC00B2FA35 /* LaunchScreen.storyboard in Resources */,
-				22D10D1F1C6ED483005E7F8C /* WallUV.png in Resources */,
+				2293A8A41C717A37004AE2CD /* CrateUV.png in Resources */,
 				22B0EED51C6C33BC00B2FA35 /* BasicShader.fsh in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -271,6 +294,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				22D10CEA1C6EA839005E7F8C /* Scene.m in Sources */,
+				2293A8A71C717A95004AE2CD /* Crate.m in Sources */,
 				22D10CE81C6EA836005E7F8C /* Entity.m in Sources */,
 				22B0EED31C6C33BC00B2FA35 /* AppDelegate.m in Sources */,
 				22D10D371C6FFBD6005E7F8C /* Floor.m in Sources */,

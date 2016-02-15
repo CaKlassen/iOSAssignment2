@@ -1,40 +1,44 @@
 //
-//  Wall.m
+//  Crate.m
 //  iOSAssignment2
 //
-//  Created by ChristoferKlassen on 2016-02-12.
+//  Created by ChristoferKlassen on 2016-02-13.
 //  Copyright © 2016 Chris Klassen. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
-#import "Wall.h"
-#import "WalLData.h"
+#import "Crate.h"
+#import "CrateData.h"
 #import "Vector.h"
 
-@interface Wall ()
+@interface Crate ()
 {
 	Vector3 *position;
+	float rotation;
 }
 
 @end
 
 
-@implementation Wall
+@implementation Crate
 
--(id)initWithPosition:(Vector3*)pos type:(int)type
+static const NSString* FILE_NAME = @"CrateUV.png";
+static const float ROTATE_SPEED = 0.01;
+
+
+-(id)initWithPosition:(Vector3*)pos
 {
-	NSString *str = [NSString stringWithFormat:@"WallUV%d.png", type];
+	self = [super initWithTextureFile:FILE_NAME pos:CratePositions posSize:sizeof(CratePositions) tex:CrateTexels texSize:sizeof(CrateTexels) norm:CrateNormals normSize:sizeof(CrateNormals)];
+	position = pos;
 	
-	self = [super initWithTextureFile:str pos:WallPositions posSize:sizeof(WallPositions) tex:WallTexels texSize:sizeof(WallTexels) norm:WallNormals normSize:sizeof(WallNormals)];
-	position = [[Vector3 alloc] initWithValue:(pos.x * 2) yPos:(pos.y * 2) zPos:(pos.z * 2)];
-	
+	rotation = 0;
 	
 	return self;
 }
 
 -(void)update
 {
-	
+	rotation += ROTATE_SPEED;
 }
 
 
@@ -44,6 +48,7 @@
 	GLKMatrix4 modelMatrix = GLKMatrix4Identity;
 	modelMatrix = GLKMatrix4Multiply([camera getLookAt], modelMatrix);
 	modelMatrix = GLKMatrix4Translate(modelMatrix, [position x], [position y], [position z]);
+	modelMatrix = GLKMatrix4RotateY(modelMatrix, rotation);
 	
 	_normalMatrix = GLKMatrix3InvertAndTranspose(GLKMatrix4GetMatrix3(modelMatrix), NULL);
 	
@@ -53,7 +58,7 @@
 	[program useProgram:_vertexArray mvp:_modelViewProjectionMatrix normal:_normalMatrix];
 	
 	//draw the model
-	glDrawArrays(GL_TRIANGLES, 0, WallVertices);
+	glDrawArrays(GL_TRIANGLES, 0, CrateVertices);
 }
 
 @end

@@ -14,7 +14,7 @@
 
 @interface Wall : Model
 
--(id)initWithPosition:(Vector3*)pos;
+-(id)initWithPosition:(Vector3*)pos type:(int)type;
 
 @end
 

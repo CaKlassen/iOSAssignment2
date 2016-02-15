@@ -9,6 +9,13 @@
 #import <Foundation/Foundation.h>
 #import "Camera.h"
 
+@interface Camera ()
+
+@property (strong) Vector3* startPos;
+
+@end
+
+
 @implementation Camera
 
 -(id)initWithPerspective:(GLKMatrix4)matrix position:(Vector3 *)pos
@@ -23,6 +30,7 @@
 	
 	// Set the position
 	[self makePosition:pos];
+	[self setStartPos:self.position];
 	
 	
 	return self;
@@ -82,6 +90,12 @@
 	self.rotation.z += rot.z;
 	
 	[self setLookAtTarget];
+}
+
+-(void)reset
+{
+	_position = [[Vector3 alloc] initWithValue:[_startPos x] yPos:[_startPos y] zPos:[_startPos z]];
+	_rotation = [[Vector3 alloc] initWithValue:0 yPos:0 zPos:0];
 }
 
 
