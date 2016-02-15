@@ -20,7 +20,10 @@
 
 -(id)initWithShaders:(NSString*)vShader fragmentShader:(NSString*)fShader;
 -(void)retrieveUniforms;
--(void)useProgram:(GLuint)vertexArray mvp:(GLKMatrix4)mvpMatrix normal:(GLKMatrix3)normalMatrix;
+-(void)setUniform:(NSString*)key value:(void*)value size:(int)size;
+-(void)useProgram:(GLuint)vertexArray;
+
+@property (strong) NSMutableDictionary* uniforms;
 
 @end
 

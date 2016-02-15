@@ -13,8 +13,10 @@
 {
 	enum
 	{
-		UNIFORM_MODELVIEWPROJECTION_MATRIX,
+		UNIFORM_VIEWPROJECTION_MATRIX,
+		UNIFORM_WORLD_MATRIX,
 		UNIFORM_NORMAL_MATRIX,
+		UNIFORM_EYE_DIRECTION,
 		NUM_UNIFORMS
 	};
 	
@@ -40,19 +42,33 @@
 
 -(void)retrieveUniforms
 {
-	uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX] = glGetUniformLocation(program, "modelViewProjectionMatrix");
+	uniforms[UNIFORM_VIEWPROJECTION_MATRIX] = glGetUniformLocation(program, "ViewProj");
+	uniforms[UNIFORM_WORLD_MATRIX] = glGetUniformLocation(program, "World");
 	uniforms[UNIFORM_NORMAL_MATRIX] = glGetUniformLocation(program, "normalMatrix");
+	uniforms[UNIFORM_EYE_DIRECTION] = glGetUniformLocation(program, "EyeDirection");
 }
 
 
--(void)useProgram:(GLuint)vertexArray mvp:(GLKMatrix4)mvpMatrix normal:(GLKMatrix3)normalMatrix
+-(void)useProgram:(GLuint)vertexArray
 {
 	glUseProgram(program);
 	
 	glBindVertexArrayOES(vertexArray);
 	
-	glUniformMatrix4fv(uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, 0, mvpMatrix.m);
+	GLKMatrix4 viewProj;
+	GLKMatrix4 world;
+	GLKMatrix3 normalMatrix;
+	GLKVector3 eyePos;
+	
+	[[[self uniforms] objectForKey:@"ViewProj"] getBytes:&viewProj length:sizeof(GLKMatrix4)];
+	[[[self uniforms] objectForKey:@"World"] getBytes:&world length:sizeof(GLKMatrix4)];
+	[[[self uniforms] objectForKey:@"normalMatrix"] getBytes:&normalMatrix length:sizeof(GLKMatrix3)];
+	[[[self uniforms] objectForKey:@"EyeDirection"] getBytes:&eyePos length:sizeof(GLKVector3)];
+	
+	glUniformMatrix4fv(uniforms[UNIFORM_VIEWPROJECTION_MATRIX], 1, 0, viewProj.m);
+	glUniformMatrix4fv(uniforms[UNIFORM_WORLD_MATRIX], 1, 0, world.m);
 	glUniformMatrix3fv(uniforms[UNIFORM_NORMAL_MATRIX], 1, 0, normalMatrix.m);
+	glUniform3fv(uniforms[UNIFORM_EYE_DIRECTION], 1, eyePos.v);
 }
 
 

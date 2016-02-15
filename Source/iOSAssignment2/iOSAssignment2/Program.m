@@ -11,7 +11,6 @@
 
 @interface Program ()
 
-
 @end
 
 @implementation Program
@@ -23,6 +22,7 @@
 	// Load the shaders and create the program
 	[self loadShaders:vShader fragmentShader:fShader];
 	
+	_uniforms = [[NSMutableDictionary alloc] init];
 	
 	return self;
 }
@@ -127,7 +127,20 @@
 	glCompileShader(*shader);
 	
 	glGetShaderiv(*shader, GL_COMPILE_STATUS, &status);
-	if(status == 0){
+	if(status == 0)
+	{
+		GLint length;
+		glGetShaderiv(*shader, GL_INFO_LOG_LENGTH, &length);
+		if (length > 0)
+		{
+			GLint infoLength;
+			char* infoBuf = (char*) malloc(sizeof(char) * length);
+			glGetShaderInfoLog(*shader, length, &infoLength, infoBuf);
+			
+			printf("%s", infoBuf);
+			free(infoBuf);
+		}
+		
 		glDeleteShader(*shader);
 		return NO;
 	}
@@ -140,7 +153,14 @@
 	
 }
 
--(void)useProgram:(GLuint)vertexArray mvp:(GLKMatrix4)mvpMatrix normal:(GLKMatrix3)normalMatrix
+-(void)setUniform:(NSString*)key value:(void*)value size:(int)size
+{
+	
+	NSData *data = [NSData dataWithBytes:value length:size];
+	[_uniforms setObject:data forKey:key];
+}
+
+-(void)useProgram:(GLuint)vertexArray
 {
 	
 }

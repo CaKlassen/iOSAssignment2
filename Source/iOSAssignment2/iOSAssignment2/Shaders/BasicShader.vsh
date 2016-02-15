@@ -10,22 +10,24 @@ attribute vec4 position;
 attribute vec3 normal;
 attribute vec2 texCoord;
 
-varying lowp vec4 colorVarying;
 varying vec2 TexCoordOut;
+varying vec4 EyeDirOut;
+varying vec4 PosOut;
+varying vec3 NormalOut;
 
-uniform mat4 modelViewProjectionMatrix;
+uniform mat4 World;
+uniform mat4 ViewProj;
+uniform vec3 EyeDirection;
 uniform mat3 normalMatrix;
 
 void main()
 {
-    vec3 eyeNormal = normalize(normalMatrix * normal);
-    vec3 lightPosition = vec3(0.0, 0.0, 1.0);
-    vec4 diffuseColor = vec4(1.0, 1.0, 1.0, 1.0);
-    
-    float nDotVP = max(0.0, dot(eyeNormal, normalize(lightPosition)));
-                 
-	colorVarying = diffuseColor;// * nDotVP;
-    
-    gl_Position = modelViewProjectionMatrix * position;
+	vec4 worldPosition = World * position;
+	mat4 modelViewProjectionMatrix = ViewProj * World;
+	
+	PosOut = worldPosition;
+	gl_Position = modelViewProjectionMatrix * position;
 	TexCoordOut = texCoord;
+	EyeDirOut = vec4(EyeDirection.xyz, 1);
+	NormalOut = normalMatrix * normal;
 }

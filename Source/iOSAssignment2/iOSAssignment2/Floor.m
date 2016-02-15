@@ -48,11 +48,19 @@ static const int SCALE = 20;
 	
 	_normalMatrix = GLKMatrix3InvertAndTranspose(GLKMatrix4GetMatrix3(modelMatrix), NULL);
 	
-	_modelViewProjectionMatrix = GLKMatrix4Multiply(camera.perspective, modelMatrix);
-	
 	[self setTexture];
-	[program useProgram:_vertexArray mvp:_modelViewProjectionMatrix normal:_normalMatrix];
-
+	
+	GLKVector3 eyeDir = GLKVector3Make([[camera lookAt] x], [[camera lookAt] y], [[camera lookAt] z]);
+	
+	GLKMatrix4 viewProj = [camera perspective];
+	
+	[program setUniform:@"ViewProj" value:&viewProj size:sizeof(viewProj)];
+	[program setUniform:@"World" value:&modelMatrix size:sizeof(modelMatrix)];
+	[program setUniform:@"normalMatrix" value:&_normalMatrix size:sizeof(_normalMatrix)];
+	[program setUniform:@"EyeDirection" value:&eyeDir size:sizeof(eyeDir)];
+	
+	[program useProgram:_vertexArray];
+	
 	//draw the model
 	glDrawArrays(GL_TRIANGLES, 0, FloorVertices);
 }
