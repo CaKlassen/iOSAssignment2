@@ -13,6 +13,12 @@ varying lowp vec3 NormalOut;
 
 uniform sampler2D Texture;
 
+uniform highp float fogEnabled;
+uniform highp float fogFar;
+
+uniform highp float ambientIntensity;
+uniform highp vec3 ambientColour;
+
 void main()
 {
 	// Light direction
@@ -38,11 +44,11 @@ void main()
 	highp float specular = pow(clamp(dot(reflection, view), 0.0, 1.0), 2.0) * attenuation * spotIntensity;
 
 	// Fog
-	highp float fog = clamp((dis - 2.0) / (6.0), 0.0, 1.0);
+	highp float fog = clamp((dis - 2.0) / (fogFar), 0.0, 1.0) * fogEnabled;
 	
 	// Final colouration
     highp vec4 color = texture2D(Texture, TexCoordOut);
-	color.rgb *= (0.2 * vec3(1.0, 1.0, 0.9)) + (vec3(1.0, 1.0, 1.0) * diffuse) + (vec3(1, 1, 1) * specular);
+	color.rgb *= (ambientIntensity * ambientColour) + (vec3(1.0, 1.0, 1.0) * diffuse) + (vec3(1, 1, 1) * specular);
 	color.rgba = mix(color.rgba, vec4(0.2, 0.2, 0.2, 1), fog);
 	
 	gl_FragColor = color;

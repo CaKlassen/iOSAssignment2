@@ -1,15 +1,15 @@
 //
-//  BasicProgram.m
+//  SpriteProgram.m
 //  iOSAssignment2
 //
-//  Created by ChristoferKlassen on 2016-02-12.
+//  Created by ChristoferKlassen on 2016-02-19.
 //  Copyright © 2016 Chris Klassen. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
-#import "BasicProgram.h"
+#import "SpriteProgram.h"
 
-@interface BasicProgram ()
+@interface SpriteProgram ()
 {
 	enum
 	{
@@ -30,12 +30,12 @@
 @end
 
 
-@implementation BasicProgram
+@implementation SpriteProgram
 
 -(id)init
 {
 	// Create the shaders
-	self = [super initWithShaders:@"BasicShader" fragmentShader:@"BasicShader"];
+	self = [super initWithShaders:@"BasicShader" fragmentShader:@"SpriteShader"];
 	
 	// Retrieve the uniform locations
 	[self retrieveUniforms];

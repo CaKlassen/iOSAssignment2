@@ -59,6 +59,7 @@ static const int SCALE = 20;
 	[program setUniform:@"normalMatrix" value:&_normalMatrix size:sizeof(_normalMatrix)];
 	[program setUniform:@"EyeDirection" value:&eyeDir size:sizeof(eyeDir)];
 	
+	
 	[program useProgram:_vertexArray];
 	
 	//draw the model

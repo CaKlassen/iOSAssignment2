@@ -27,6 +27,11 @@
 	
 }
 
+-(void)pinch:(UIPinchGestureRecognizer*)recognizer
+{
+	
+}
+
 -(void)doubleTap:(UITapGestureRecognizer*)recognizer
 {
 	

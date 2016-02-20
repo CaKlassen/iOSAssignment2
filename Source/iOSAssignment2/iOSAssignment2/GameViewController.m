@@ -64,6 +64,9 @@ static GameViewController *instance;
 	UIPanGestureRecognizer *panRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePanFrom:)];
 	[self.view addGestureRecognizer:panRecognizer];
 	
+	UIPinchGestureRecognizer *pinchRecognizer = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(handlePinchFrom:)];
+	[self.view addGestureRecognizer:pinchRecognizer];
+	
 	UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleDoubleTapFrom:)];
 	[tapRecognizer setNumberOfTapsRequired:2];
 	[tapRecognizer setNumberOfTouchesRequired:1];
@@ -97,6 +100,11 @@ static GameViewController *instance;
 -(void)handlePanFrom:(UIPanGestureRecognizer*)recognizer
 {
 	[self.scene pan:recognizer];
+}
+
+-(void)handlePinchFrom:(UIPinchGestureRecognizer*)recognizer
+{
+	[self.scene pinch:recognizer];
 }
 
 -(void)handleDoubleTapFrom:(UITapGestureRecognizer*)recognizer

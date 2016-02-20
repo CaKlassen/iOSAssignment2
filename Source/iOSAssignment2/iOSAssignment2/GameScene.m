@@ -12,10 +12,13 @@
 #import "Wall.h"
 #import "Floor.h"
 #import "BasicProgram.h"
+#import "SpriteProgram.h"
 #import "Vector.h"
 #import "Camera.h"
 #import "Crate.h"
 #import "MazeBuilder.h"
+#import "GameSettings.h"
+#import "Map.h"
 
 
 @interface GameScene ()
@@ -26,8 +29,12 @@
 	Floor *floor;
 	Crate *crate;
 	
+	GameSettings *gameSettings;
 	BasicProgram *basicProgram;
+	SpriteProgram *spriteProgram;
 	MazeBuilder *builder;
+	
+	Map *map;
 	
 	CGPoint touchStart;
 }
@@ -41,10 +48,13 @@
 {
 	self = [super init];
 	
+	gameSettings = [GameSettings getInstance];
+	
 	wallList = [[NSMutableArray alloc] init];
 	floor = [[Floor alloc] initWithPosition:[[Vector3 alloc] initWithValue:0 yPos:0 zPos:0]];
 	
 	basicProgram = [[BasicProgram alloc] init];
+	spriteProgram = [[SpriteProgram alloc] init];
 	
 	builder = [[MazeBuilder alloc] init];
 	[builder buildMaze];
@@ -55,11 +65,15 @@
 	// Create the crate
 	crate = [[Crate alloc] initWithPosition:[[Vector3 alloc] initWithValue:MAX(0, [[builder startPos] x]) yPos:2 zPos:MAX([[builder startPos] y], 0)]];
 	
+	map = [[Map alloc] initWithBlocks:wallList];
+	
 	return self;
 }
 
 -(void)update
 {
+	[gameSettings update:basicProgram];
+	
 	[crate update];
 }
 
@@ -77,6 +91,8 @@
 	
 	[floor draw:basicProgram camera:camera];
 	[crate draw:basicProgram camera:camera];
+	
+	[map draw:spriteProgram camera:camera];
 }
 
 
@@ -107,7 +123,7 @@
 	}
 	else
 	{
-		// Strafing
+		// Changing fog parameters
 		CGPoint touchLocation = [recognizer locationInView:recognizer.view];
 		
 		if ([recognizer state] == UIGestureRecognizerStateBegan)
@@ -116,13 +132,26 @@
 		}
 		else
 		{
-			// Determine the distance travelled
+			// Determine the distance moved
 			CGPoint dis;
-			dis.x = (touchLocation.x - touchStart.x) / 30; // Turning
+			dis.x = (touchLocation.x - touchStart.x) / 30; // Fog far
+			dis.y = (touchLocation.y - touchStart.y);
 			
 			touchStart = touchLocation;
 			
-			[camera moveCamera:[[Vector2 alloc] initWithValue:dis.x yPos:0]];
+			[gameSettings setFogFar:([gameSettings fogFar] + dis.x)];
+			
+			if (dis.y < -20)
+			{
+				// Toggle fog on
+				[gameSettings setFogEnabled:YES];
+			}
+			else if (dis.y > 20)
+			{
+				// Toggle fog off
+				[gameSettings setFogEnabled:NO];
+			}
+			
 		}
 
 	}
@@ -139,7 +168,21 @@
 
 -(void)doubleTapTwoFingers:(UITapGestureRecognizer*)recognizer
 {
-	
+	[map toggleVisible];
+}
+
+-(void)pinch:(UIPinchGestureRecognizer*)recognizer
+{
+	float scale = [recognizer scale];
+
+	if (scale > 1.0)
+	{
+		[gameSettings setNight:YES];
+	}
+	else
+	{
+		[gameSettings setNight:NO];
+	}
 }
 
 

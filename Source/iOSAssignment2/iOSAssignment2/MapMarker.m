@@ -1,26 +1,24 @@
 //
-//  Wall.m
+//  Map.m
 //  iOSAssignment2
 //
-//  Created by ChristoferKlassen on 2016-02-12.
+//  Created by ChristoferKlassen on 2016-02-19.
 //  Copyright © 2016 Chris Klassen. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
-#import "Wall.h"
-#import "WalLData.h"
-#import "Vector.h"
-#import "GameSettings.h"
+#import "MapMarker.h"
 
 
-@implementation Wall
+@implementation MapMarker
 
--(id)initWithPosition:(Vector3*)pos type:(int)type
+
+static const NSString* FILE_NAME = @"Marker.png";
+
+-(id)init
 {
-	NSString *str = [NSString stringWithFormat:@"WallUV%d.png", type];
+	self = [super initWithTextureFile:FILE_NAME];
 	
-	self = [super initWithTextureFile:str pos:WallPositions posSize:sizeof(WallPositions) tex:WallTexels texSize:sizeof(WallTexels) norm:WallNormals normSize:sizeof(WallNormals)];
-	_position = [[Vector3 alloc] initWithValue:(pos.x * 2) yPos:(pos.y * 2) zPos:(pos.z * 2)];
 	
 	
 	return self;
@@ -36,14 +34,17 @@
 {
 	// Set up the model matrix
 	GLKMatrix4 modelMatrix = GLKMatrix4Identity;
-	modelMatrix = GLKMatrix4Multiply([camera getLookAt], modelMatrix);
-	modelMatrix = GLKMatrix4Translate(modelMatrix, [_position x], [_position y], [_position z]);
+	modelMatrix = GLKMatrix4Translate(modelMatrix, [[camera position] x] / 200, [[camera position] z] / 200, 0);
+	modelMatrix = GLKMatrix4Translate(modelMatrix, -0.03, -0.03, -0.11);
+	modelMatrix = GLKMatrix4Scale(modelMatrix, 0.0003, 0.0003, 0.0003);
+	modelMatrix = GLKMatrix4RotateZ(modelMatrix, -[[camera rotation] y] - M_PI / 2);
 	
 	_normalMatrix = GLKMatrix3InvertAndTranspose(GLKMatrix4GetMatrix3(modelMatrix), NULL);
 	
 	[self setTexture];
 	
 	GLKVector3 eyeDir = GLKVector3Make([[camera lookAt] x], [[camera lookAt] y], [[camera lookAt] z]);
+	
 	GLKMatrix4 viewProj = [camera perspective];
 	
 	[program setUniform:@"ViewProj" value:&viewProj size:sizeof(viewProj)];
@@ -54,7 +55,8 @@
 	[program useProgram:_vertexArray];
 	
 	//draw the model
-	glDrawArrays(GL_TRIANGLES, 0, WallVertices);
+	glDrawArrays(GL_TRIANGLES, 0, NumVertices);
 }
+
 
 @end
